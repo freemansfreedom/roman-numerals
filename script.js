@@ -2,47 +2,53 @@ const input = document.getElementById("number");
 const convertBtn = document.getElementById("convert-btn");
 const output = document.getElementById("output");
 
-// const tableEquivalencies = {
-//     0: '',
-//     1: '',
-//     2: '',
-//     3: ''
-// }
-
-const convert = () => {
-    let romanNumber = ``;
-    romanNumber += romanThousands(input.value);
-    romanNumber += romanHundreds(input.value);
-    output.innerText = romanNumber;
+// After researching possible solutions to this problem, I am going to tackle it with a mix of a lookup table for coin counting and recursion
+// Written as an object that will alter be separated into key-value pairs for ease of reading
+const tableEquivalencies = {
+    1000: 'M',
+    900: 'CM',
+    500: 'D',
+    400: 'CD',
+    100: 'C',
+    90: 'XC',
+    50: 'L',
+    40: 'XL',
+    10: 'X',
+    9: 'IX',
+    5: 'V',
+    4: 'IV',
+    1: 'I'
 }
 
-const romanThousands = (number) => {
-    const thousands = getNumberFromPosition(number, 3);
-    if (thousands === -1) {
+const updateUI = () => {
+    const equivalenceArray= Object.entries(tableEquivalencies).reverse();
+    let value = input.value;
+    console.log(value);
+    if(value > 3999){
+        output.innerText = "Please enter a number less than or equal to 3999."
+    } else {
+        let romanOutput = recursiveCounting(value, equivalenceArray);
+        output.innerText = romanOutput;
+    }
+}
+
+
+const recursiveCounting = (value, equivalenceArray) => {
+    console.log(Number(equivalenceArray[0][0]), value)
+    if (value <= 0) {
         return '';
+    } else {
+        const currentEquivalence =  Number(equivalenceArray[0][0]);
+        if(value >= currentEquivalence) {
+            value -= currentEquivalence;
+            return '' + equivalenceArray[0][1] + recursiveCounting(value, equivalenceArray);
+        } else {
+            equivalenceArray.shift();
+            return '' + recursiveCounting(value, equivalenceArray);
+        }
     }
-    let roman = ``;
-    for(let i = 0; i < thousands; i++) {
-        roman += 'M';
-    }
-    return roman;
 }
 
-const romanHundreds = (number) => {
-    const hundreds = getNumberFromPosition(number, 3)
-    return numbersToLetters(number, 'C', 'D', 'M');
-}
-
-const romanTenths = (number) => {
-    const tenths = Math.floor(number / 100);
-    return numbersToLetters(number, 'C', 'D', 'M');
-}
-
-
-const numberToLetters = (number, one, five, ten) => {
-    
-    return '';
-}
 
 const getNumberFromPosition = (number, position) => {
     // Convert the number to a string, for easier manipulation
@@ -58,7 +64,7 @@ const getNumberFromPosition = (number, position) => {
     return Number(numberArray[position - 1])
 }
 
-convertBtn.addEventListener("click", convert);
+convertBtn.addEventListener("click", updateUI);
 
 // Algorithm to convert numbers to roman
 
