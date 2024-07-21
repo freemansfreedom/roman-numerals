@@ -23,18 +23,28 @@ const tableEquivalencies = {
 const updateUI = () => {
     const equivalenceArray= Object.entries(tableEquivalencies).reverse();
     let value = input.value;
-    console.log(value);
-    if(value > 3999){
+    output.classList.add("box");
+    if(value === ''){
+        output.innerText = "Please enter a valid number"
+        output.classList.add("error");
+    } else if (value <= 0) {
+        output.innerText = "Please enter a number greater than or equal to 1"
+        output.classList.add("error");
+    } else if(value > 3999){
         output.innerText = "Please enter a number less than or equal to 3999."
+        output.classList.add("error");
     } else {
         let romanOutput = recursiveCounting(value, equivalenceArray);
         output.innerText = romanOutput;
+        output.classList.remove("error")
+        // Add box and remove error in not already in
     }
+
+
+
 }
 
-
 const recursiveCounting = (value, equivalenceArray) => {
-    console.log(Number(equivalenceArray[0][0]), value)
     if (value <= 0) {
         return '';
     } else {
@@ -49,24 +59,13 @@ const recursiveCounting = (value, equivalenceArray) => {
     }
 }
 
+convertBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    updateUI();
+});
 
-const getNumberFromPosition = (number, position) => {
-    // Convert the number to a string, for easier manipulation
-    // Split it into an array and reverse it, so array[0] is the rightmost number and so on
-    // Return the number found in that position, converted back to a number. 
-    // Take one from position to acount for array 
-    // Oneths -> 1, tenths -> 2 and so on
-    // returns -1 if it does not exist (f.e. asking for position 3 on number 10)
-    const numberArray = ('' + number).split("").reverse();
-    if (numberArray.length <= position) {
-        return -1;
+input.addEventListener("keydown", (e) => {
+    if(e.key === 'Enter') {
+        updateUI();
     }
-    return Number(numberArray[position - 1])
-}
-
-convertBtn.addEventListener("click", updateUI);
-
-// Algorithm to convert numbers to roman
-
-// If number is between 1000 and 3000 -> M
-// 
+})

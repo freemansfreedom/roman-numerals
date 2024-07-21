@@ -1,0 +1,107 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: rgb(5, 31, 3);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 500px;
+    margin: auto;
+    font-family: "Roboto", sans-serif;
+    color: white;
+}
+
+header {
+    margin-top: 55px;
+    margin-bottom: 50px;
+}
+
+h1 {
+    /* I give up finding a good font for the title. Just picking what you guys have on the demo and be done with it.
+    The exercise isn't about being artistic, but about being able to work with JS. */
+    font-family: 'Castoro Titling', 'Times New Roman', Times, serif;
+    color: rgb(230, 230, 230);
+    font-size: 48px;
+}
+
+fieldset {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+label {
+    margin-top: 30px;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+input {
+    margin: auto;
+    box-sizing: border-box;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    height: 55px;
+    width: 400px;
+    background-color: rgb(5, 31, 3);
+    border: 1px solid white;
+    font-size: 2rem;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: white;
+    appearance: none;
+}
+
+/* It kinda bugged me the fact that the arrows still showed, so I 
+researched how to hide them and applied it. Found how here: 
+https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number]#number {
+  -moz-appearance: textfield;
+}
+
+button {
+    height: 55px;
+    width: 400px;
+    margin: auto;
+    border: 3px solid rgb(128, 85, 36);
+    background: linear-gradient(to bottom, rgb(151, 89, 39), rgb(112, 59, 28));
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.box {
+    border: 4px solid white;    
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+#output {
+    margin:auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px 15px;
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+#output.error {
+    border: 4px solid rgb(207, 0, 0);    
+    background-color: rgba(255, 184, 184, 0.849);
+    color: rgb(185, 0, 0);
+    font-size: 2rem;
+}
